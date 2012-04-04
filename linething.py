@@ -4,23 +4,45 @@ pygame.init()
 #create the screen
 window = pygame.display.set_mode((640, 640)) 
 
-xcoord = random.randint(0,639)
-ycoord = random.randint(0,479)
+xcoord = random.randint(0,640)
+ycoord = random.randint(0,640)
+width = 1
+color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
 #draw a line
-pygame.draw.line(window, (255, 255, 255), (xcoord, ycoord), (xcoord, ycoord), 1)
-#pygame.draw.arc(window, (255, 255, 255), pygame.Rect(0,0,640,480), 0, 5)
+#for ycoord in xrange(640):
+#   for xcoord in xrange(640):
+#      pygame.draw.line(window, color, (xcoord, ycoord), (xcoord, ycoord), width)
+#      color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+"""      newcolor = []
+      for component in color:
+         toadd = component + random.randint(-100, 100)
+         if toadd > 255:
+            toadd = 255
+         if toadd < 0:
+            toadd = 0
+         newcolor.append(toadd)
+      color = tuple(newcolor)"""
 
-#draw it to the screen
+#pygame.draw.arc(window, color, pygame.Rect(0,0,640,480), 0, width)
 pygame.display.flip() 
 
-#input handling (somewhat boilerplate code):
-while True: 
+while 1:
    for event in pygame.event.get(): 
       if event.type == pygame.QUIT: 
          sys.exit(0)
    #xcoord = random.randint(0,640)
-   #ycoord = random.randint(0,480)
+   #ycoord = random.randint(0,640)
+   #color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+   newcolor = []
+   for component in color:
+      toadd = component + random.randint(-100, 100)
+      if toadd > 255:
+         toadd = 255
+      if toadd < 0:
+         toadd = 0
+      newcolor.append(toadd)
+   color = tuple(newcolor)
    xdiff = random.randint(-200, 200)
    ydiff = random.randint(-200, 200)
    if xcoord+xdiff > 640:
@@ -31,7 +53,7 @@ while True:
       ydiff = 0 - ycoord
    if xcoord+xdiff < 0:
       xdiff = 0 - xcoord
-   pygame.draw.line(window, (255,255,255), (xcoord, ycoord), (xcoord+xdiff, ycoord+ydiff), 1)
+   pygame.draw.line(window, color, (xcoord, ycoord), (xcoord+xdiff, ycoord+ydiff), width)
    xcoord += xdiff
    ycoord += ydiff
    pygame.display.flip()
