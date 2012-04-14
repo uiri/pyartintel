@@ -44,8 +44,8 @@ while 1:
          toadd = component + random.randint(-10, 10)
          if toadd > 255:
             toadd = 255
-         if toadd < 0:
-            toadd = 0
+         if toadd < 100:
+            toadd = 100
          newcolor.append(toadd)
       color = tuple(newcolor)
       xdiff = random.randint(-10, 10)
@@ -59,20 +59,38 @@ while 1:
          ydiff = 0 - ycoord
       if xcoord+xdiff < 0:
          xdiff = 0 - xcoord
-      pygame.draw.line(window, color, (xcoord+xdiff, ycoord), (xcoord+xdiff, ycoord+ydiff), width)
-      while (xcoord, ycoord) in alreadypainted:
-         if random.choice(["x", "y"]) == "x":
-            xcoord += 1
-            if xcoord > winw:
-               xcoord = 0
-         else:
-            ycoord += 1
-            if ycoord > winh:
-               ycoord = 0
-      pygame.draw.circle(window, color, (xcoord, ycoord), width)
-      xcoord += xdiff
-      ycoord += ydiff
-      alreadypainted.append((xcoord, ycoord))
-      pygame.display.flip()
-      if len(alreadypainted) == winh*winw:
-         paint = False
+      #pygame.draw.line(window, color, (xcoord+xdiff, ycoord), (xcoord+xdiff, ycoord+ydiff), width)
+      if xcoord == winw:
+         xcoord = 0
+      if ycoord == winh:
+         ycoord = 0
+      try:
+         while window.get_at((xcoord, ycoord)) != (0,0,0):
+            if random.choice(["x", "y"]) == "x":
+               if random.choice(["+", "-"]) == "+":
+                  xcoord += 1
+                  if xcoord > winw:
+                     xcoord = 0
+               else:
+                  xcoord -= 1
+                  if xcoord < 0:
+                     xcoord = winw - 1
+            else:
+               if random.choice(["+", "-"]) == "+":
+                  ycoord += 1
+                  if ycoord > winh:
+                     ycoord = 0
+               else:
+                  ycoord -= 1
+                  if ycoord < 0:
+                     ycoord = winh - 1
+         pygame.draw.circle(window, color, (xcoord, ycoord), width)
+         xcoord += xdiff
+         ycoord += ydiff
+         alreadypainted.append((xcoord, ycoord))
+         pygame.display.flip()
+         if len(alreadypainted) == winh*winw:
+            paint = False
+      except:
+         xcoord = random.randint(0, winw)
+         ycoord = random.randint(0, winh)
