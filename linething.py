@@ -19,7 +19,9 @@ xcoord = random.randint(int(winw*0.1),int(winw*0.9))
 ycoord = random.randint(int(winh*0.1),int(winh*0.9))
 width = 1
 widthmax = 20
-color = (random.randint(100, 255), random.randint(100, 255), random.randint(0, 255))
+#colorseed = random.randint(100,255)
+#color = (colorseed, colorseed, colorseed)
+color = (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
 basecolor = copy.copy(color)
 
 #draw a line
@@ -49,6 +51,7 @@ while 1:
       #ycoord = random.randint(0,winh)
       #color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
       newcolor = []
+      #i=0
       for i in xrange(3):
          toadd = basecolor[i] + random.randint(-10, 10)
          if toadd > 255:
@@ -57,6 +60,7 @@ while 1:
             toadd = 100
          newcolor.append(toadd)
       color = tuple(newcolor)
+      #for i in xrange(3):
       width = random.randint(1,widthmax)
       """xdiff = random.randint(-10, 10)
       ydiff = random.randint(-10, 10)
@@ -120,9 +124,15 @@ while 1:
       except:
          if colourstrokecount == oldcolourstrokecount and colourstrokecount != oldoldcolourstrokecount:
             oldcolourstrokecountcount += 1
+         if basecolor not in pallette:
+            pallette.append(basecolor)
          if oldcolourstrokecountcount > 10:
+            for i in xrange(len(pallette)):
+               print i, pallette[i]
             paint = False
-            basecolor = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            #basecolorseed = random.randint(75,180)
+            #basecolor = (basecolorseed, basecolorseed, basecolorseed)
+            basecolor = (random.randint(75, 180), random.randint(75, 180), random.randint(75, 180))
             tempwindow = window.copy()
             tempwindow.set_colorkey((0,0,0))
             window.fill(basecolor)
@@ -131,10 +141,10 @@ while 1:
             pygame.display.flip()
          xcoord = random.randint(int(winw*0.1),int(winw*0.9))
          ycoord = random.randint(int(winh*0.1),int(winh*0.9))
-         if basecolor not in pallette:
-            pallette.append(basecolor)
          oldoldcolourstrokecount = oldcolourstrokecount
          oldcolourstrokecount = colourstrokecount
          if colourstrokecount > int(winw*winh*0.075)/(widthmax**1.5):
-            basecolor = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            #basecolorseed = random.randint(100, 255)
+            #basecolor = (basecolorseed, basecolorseed, basecolorseed)
+            basecolor = (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
             colourstrokecount = 0
