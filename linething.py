@@ -19,27 +19,9 @@ xcoord = random.randint(int(winw*0.1),int(winw*0.9))
 ycoord = random.randint(int(winh*0.1),int(winh*0.9))
 width = 1
 widthmax = 20
-#colorseed = random.randint(100,255)
-#color = (colorseed, colorseed, colorseed)
 color = (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
 basecolor = copy.copy(color)
 
-#draw a line
-#for ycoord in xrange(winh):
-#   for xcoord in xrange(winw):
-#      pygame.draw.line(window, color, (xcoord, ycoord), (xcoord, ycoord), width)
-#      color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-"""      newcolor = []
-      for component in color:
-         toadd = component + random.randint(-100, 100)
-         if toadd > 255:
-            toadd = 255
-         if toadd < 0:
-            toadd = 0
-         newcolor.append(toadd)
-      color = tuple(newcolor)"""
-
-#pygame.draw.arc(window, color, pygame.Rect(0,0,winw,winh), 0, width)
 pygame.display.flip() 
 
 while 1:
@@ -47,11 +29,11 @@ while 1:
       if event.type == pygame.QUIT: 
          sys.exit(0)
    if paint:
+      # random coords and colour each time
       #xcoord = random.randint(0,winw)
       #ycoord = random.randint(0,winh)
       #color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
       newcolor = []
-      #i=0
       for i in xrange(3):
          toadd = basecolor[i] + random.randint(-10, 10)
          if toadd > 255:
@@ -60,7 +42,6 @@ while 1:
             toadd = 100
          newcolor.append(toadd)
       color = tuple(newcolor)
-      #for i in xrange(3):
       width = random.randint(1,widthmax)
       """xdiff = random.randint(-10, 10)
       ydiff = random.randint(-10, 10)
